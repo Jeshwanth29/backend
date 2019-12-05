@@ -35,5 +35,14 @@ public class AdminRestController {
 		return new ResponseEntity(ad, HttpStatus.OK);
 
 	}
+	
+	@PutMapping("/put/Admin/{empId}")
+	public ResponseEntity updateAdmin(@PathVariable int empId,@RequestBody Admin admin){
+		
+		adminDAO.updateAdmin(empId,admin);
+		System.out.println("after updating");
+		return new ResponseEntity(empId,HttpStatus.OK);
+	}
+	
 
 }

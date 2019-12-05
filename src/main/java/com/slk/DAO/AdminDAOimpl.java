@@ -28,28 +28,61 @@ public class AdminDAOimpl implements AdminDAO {
 	}
 
 	// @Override
-	public boolean login(String username,String password) throws Exception {
+	public boolean login(String username, String password) throws Exception {
 		// TODO Auto-generated method stub
 		Admin ad = new Admin();
-		boolean flag= false;
-		PreparedStatement stmt = connection.prepareStatement("select username,password from admin where username=?  and password=? ");
+		boolean flag = false;
+		PreparedStatement stmt = connection
+				.prepareStatement("select username,password from admin where username=?  and password=? ");
 		stmt.setString(1, username);
 		stmt.setString(2, password);
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
-			//Admin ad = new Admin();
-			//ad.setEmpId(rs.getInt(1));
-			//ad.setName(rs.getString(2));
-			//ad.setDOB(rs.getString(3));
-			//ad.setPhone_num(rs.getInt(4));
+			// Admin ad = new Admin();
+			// ad.setEmpId(rs.getInt(1));
+			// ad.setName(rs.getString(2));
+			// ad.setDOB(rs.getString(3));
+			// ad.setPhone_num(rs.getInt(4));
 			ad.setUsername(rs.getString(1));
 			ad.setPassword(rs.getString(2));
-			
-			//ad.setRole(rs.getString(7));
-			flag=true;
-			
+
+			// ad.setRole(rs.getString(7));
+			flag = true;
+
 		}
 		return flag;
+
+	}
+
+	@Override
+	public Admin updateAdmin(int empId, Admin ad) {
+		// TODO Auto-generated method stub
+		System.out.println("ID to be updated " + empId);
+		try {
+			// Admin ad = new Admin();
+			String sql = ("UPDATE admin SET name=?,DOB=?,phone_num=?,username=?,password=?,role=? where empId=?");
+
+			PreparedStatement pst = connection.prepareStatement(sql);
+
+			pst.setString(1, ad.getName());
+			pst.setString(2, ad.getDOB());
+			pst.setLong(3, ad.getPhone_num());
+			pst.setString(4, ad.getUsername());
+			pst.setString(5, ad.getPassword());
+			pst.setString(6, ad.getRole());
+			pst.setInt(7, empId);
+			int res = pst.executeUpdate();
+			System.out.println(res);
+
+			if (res > 0) {
+				System.out.println("admin Updated");
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ad;
 
 	}
 

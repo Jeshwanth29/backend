@@ -1,5 +1,7 @@
 package com.slk.model;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 public class Admin {
 	public int empId;
 	public String name;
@@ -8,7 +10,6 @@ public class Admin {
 	public String username;
 	public String password;
 	public String role;
-
 	public int getEmpId() {
 		return empId;
 	}
